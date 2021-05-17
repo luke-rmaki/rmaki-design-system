@@ -1,12 +1,10 @@
-/* eslint-disable no-new */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboard } from '@fortawesome/free-solid-svg-icons';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { hex_converter } from '../functions/hex_converter';
-
-const ClipboardJS = require(`clipboard`);
 
 type Props = {
   hex: string;
@@ -19,41 +17,33 @@ export const Swatch = (props: Props) => {
 
   const [showTooltip, setShowTooltip] = useState(false);
 
-  new ClipboardJS(`#copy_${hex}`, {
-    text: () => {
-      setShowTooltip(true);
-      setTimeout(() => {
-        setShowTooltip(false);
-      }, 2000);
-      return `#${hex}`;
-    },
-  });
+  function handleCopy() {
+    setTimeout(() => {
+      setShowTooltip(false);
+    }, 2000);
 
-  new ClipboardJS(`#copy_rgb_${hex}`, {
-    text: () => {
-      setShowTooltip(true);
-      setTimeout(() => {
-        setShowTooltip(false);
-      }, 2000);
-      return rgb;
-    },
-  });
+    setShowTooltip(true);
+  }
 
   return (
     <StyledSwatch color={hex} showTip={showTooltip}>
       <div />
       <span>
-        <input defaultValue={`#${hex}`} />
-        <button type="button" id={`copy_${hex}`}>
-          <FontAwesomeIcon icon={faClipboard} />
-          <span>Copied</span>
-        </button>
+        <input defaultValue={`#${hex}`} disabled />
+        <CopyToClipboard text={`#${hex}`} onCopy={handleCopy}>
+          <button type="button">
+            <FontAwesomeIcon icon={faClipboard} />
+            <span>Copied</span>
+          </button>
+        </CopyToClipboard>
       </span>
       <span>
-        <input defaultValue={`${rgb}`} />
-        <button type="button" id={`copy_rgb_${hex}`}>
-          <FontAwesomeIcon icon={faClipboard} />
-        </button>
+        <input defaultValue={`${rgb}`} disabled />
+        <CopyToClipboard text={`${rgb}`} onCopy={handleCopy}>
+          <button type="button">
+            <FontAwesomeIcon icon={faClipboard} />
+          </button>
+        </CopyToClipboard>
       </span>
     </StyledSwatch>
   );
