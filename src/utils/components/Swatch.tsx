@@ -4,16 +4,48 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboard } from '@fortawesome/free-solid-svg-icons';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { hex_converter } from '../functions/hex_converter';
+import { HSLToHex } from '../functions/hsl_to_hex';
+import { Hues, Saturation, Lightness } from '../../gatsby-theme-docz/Colors';
 
 type Props = {
-  hex: string;
+  color: string;
 };
 
 export const Swatch = (props: Props) => {
-  const { hex }: { hex: string } = props;
+  const { color } = props;
+  let h;
+  let s;
+  let l;
 
-  const rgb = hex_converter(`#${hex}`);
+  switch (color) {
+    case `purple`:
+      h = Hues.Purple;
+      s = Saturation.Purple;
+      l = Lightness.Purple;
+      break;
+    case `black`:
+      h = Hues.Black;
+      s = Saturation.Black;
+      l = Lightness.Black;
+      break;
+    case `accent`:
+      h = Hues.Accent;
+      s = Saturation.Accent;
+      l = Lightness.Accent;
+      break;
+    case `white`:
+      h = Hues.White;
+      s = Saturation.White;
+      l = Lightness.White;
+      break;
+    default:
+      h = 0;
+      s = 0;
+      l = 0;
+      break;
+  }
+
+  const hex = HSLToHex(h, s, l);
 
   const [showTooltip, setShowTooltip] = useState(false);
 
@@ -26,22 +58,22 @@ export const Swatch = (props: Props) => {
   }
 
   return (
-    <StyledSwatch color={hex} showTip={showTooltip}>
+    <StyledSwatch color={`${h}, ${s}%, ${l}%`} showTip={showTooltip}>
       <div />
       <span>
-        <input defaultValue={`#${hex}`} disabled />
-        <CopyToClipboard text={`#${hex}`} onCopy={handleCopy}>
+        <input defaultValue={`hsl(${h}, ${s}, ${l})`} disabled />
+        <CopyToClipboard text={`hsl(${h}, ${s}, ${l})`} onCopy={handleCopy}>
           <button type="button">
             <FontAwesomeIcon icon={faClipboard} />
-            <span>Copied</span>
           </button>
         </CopyToClipboard>
       </span>
       <span>
-        <input defaultValue={`${rgb}`} disabled />
-        <CopyToClipboard text={`${rgb}`} onCopy={handleCopy}>
+        <input defaultValue={`${hex}`} disabled />
+        <CopyToClipboard text={`${hex}`} onCopy={handleCopy}>
           <button type="button">
             <FontAwesomeIcon icon={faClipboard} />
+            <span>Copied</span>
           </button>
         </CopyToClipboard>
       </span>
@@ -59,7 +91,7 @@ const StyledSwatch = styled.li<StyledProps>`
   margin-bottom: 50px;
 
   div {
-    background-color: #${(props) => props.color};
+    background-color: ${(props) => `hsl(${props.color})`};
     height: 100px;
     width: 200px;
     padding: 10px;
