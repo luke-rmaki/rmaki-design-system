@@ -50,11 +50,9 @@ const GlobalStyles = createGlobalStyle`
     --li-white: ${Lightness.White}%;
 
     --purple: hsl(var(--hue-purple), var(--sat-purple), var(--li-purple));
-    --neutral: hsl(var(--hue-neutral), var(--sat-neutral), var(--li-neutral));
+    --black: hsl(var(--hue-black), var(--sat-black), var(--li-black));
     --accent: hsl(var(--hue-accent), var(--sat-accent), var(--li-accent));
     --white: hsl(var(--hue-white), var(--sat-white), var(--li-white));
-
-    --purple-one: hsl(var(--hue-purple), var(--sat-purple), calc(var(--li-purple) - 10));
 
     --font: 'Fira Code', monospace;
 

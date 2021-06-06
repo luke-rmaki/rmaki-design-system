@@ -37,3 +37,28 @@ import { List } from "./components/typography/List.ts";
   </li>
   <li>Item 4</li>
 </List>
+
+## List item code
+
+```css
+  font-family: var(--font);
+  font-size: var(--p);
+  list-style-type: none;
+
+  li {
+    ::before {
+      content: '=> ';
+    }
+
+    ul {
+      list-style-type: none;
+
+      li {
+        ::before {
+          content: '-> ';
+        }
+      }
+    }
+  }
+`;
+```

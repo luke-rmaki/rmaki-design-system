@@ -4,6 +4,6 @@ name: RMAKI
 
 # RMAKI Design System
 
-[Colors](src-colors)
+[Colors](src-colors-colors)
 
 [Typography](src-typography)

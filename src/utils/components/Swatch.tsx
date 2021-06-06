@@ -5,6 +5,7 @@ import { faClipboard } from '@fortawesome/free-solid-svg-icons';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { HSLToHex } from '../functions/hsl_to_hex';
+import { calculate_variant_lightness } from '../functions/calculate_variant_lightness';
 import { Hues, Saturation, Lightness } from '../../gatsby-theme-docz/Colors';
 
 type Props = {
@@ -37,6 +38,21 @@ export const Swatch = (props: Props) => {
       h = Hues.White;
       s = Saturation.White;
       l = Lightness.White;
+      break;
+    case `purple-dark-one`:
+      h = Hues.Purple;
+      s = Saturation.Purple;
+      l = calculate_variant_lightness(Lightness.Purple, `dark`, 1);
+      break;
+    case `purple-dark-two`:
+      h = Hues.Purple;
+      s = Saturation.Purple;
+      l = calculate_variant_lightness(Lightness.Purple, `dark`, 2);
+      break;
+    case `black-light-one`:
+      h = Hues.Black;
+      s = Saturation.Black;
+      l = calculate_variant_lightness(Lightness.Black, `light`, 1);
       break;
     default:
       h = 0;

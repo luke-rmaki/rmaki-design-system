@@ -1,0 +1,90 @@
+---
+name: Colors
+---
+
+import { SwatchCollection } from "../utils/components/SwatchCollection.ts";
+import { Swatch } from "../utils/components/Swatch.tsx";
+
+# Colors
+
+Colors are maintained thru three enums: Hue, Saturation, and Lightness located in the gatsby-theme docz director
+
+## Main Colors
+
+<SwatchCollection>
+  <Swatch color="purple" />
+  <Swatch color="black" />
+  <Swatch color="accent" />
+  <Swatch color="white" />
+</SwatchCollection>
+
+## Variants
+
+Variants are produced by adjusting the lightness value using calc.
+
+Add as needed
+
+### Function to calculate variants
+
+```typescript
+/**
+ *
+ * @param lightness number
+ * @param variant string
+ * @param step number
+ * @returns number
+ */
+export function calculate_variant_lightness(
+  lightness: number,
+  variant: string,
+  step: number
+): number {
+  const multiplier: number = step * 10;
+  const percentage = (lightness / 100) * multiplier;
+
+  if (variant === `dark`) {
+    return lightness - percentage;
+  }
+  return lightness + percentage;
+}
+```
+
+### Dark variants
+
+#### Dark one
+
+Subtract 10% from lightness value
+
+```css
+--color-dark-one: hsl(h, s, calc(l - 10%));
+```
+
+<SwatchCollection>
+  <Swatch color="purple-dark-one" />
+</SwatchCollection>
+
+#### Dark two
+
+Subtract 20% from lightness value
+
+```css
+--color-dark-one: hsl(h, s, calc(l - 20%));
+```
+
+<SwatchCollection>
+  <Swatch color="purple-dark-two" />
+</SwatchCollection>
+
+### Light variants
+
+#### Light one
+
+Add 10% to lightness value
+
+```css
+--color-dark-one: hsl(h, s, calc(l + 10%));
+```
+
+<SwatchCollection>
+  <Swatch color="black-light-one" />
+</SwatchCollection>
