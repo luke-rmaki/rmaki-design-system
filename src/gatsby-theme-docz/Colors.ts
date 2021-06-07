@@ -14,7 +14,7 @@ export enum Saturation {
 
 export enum Lightness {
   Purple = 48,
-  Black = 13,
+  Black = 10,
   Accent = 72,
   White = 91,
 }
