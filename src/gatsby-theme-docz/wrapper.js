@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { createGlobalStyle } from 'styled-components';
 
 import { Hues, Saturation, Lightness } from './Colors.ts';
+import { generateVariantCSS } from './generateVariantCSS.ts';
 
 // The doc prop contains some metadata about the page being rendered that you can use.
 // eslint-disable-next-line react/prop-types
@@ -24,35 +25,14 @@ const GlobalStyles = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
 
   html {
-    /* --neutral: #1F1F24;
-    --main: #5E579C;
-    --accent: #87E8CE;
-    --white: #DAE7F6;
+    
+    /* Main colors */
+    --purple: hsl(${Hues.Purple}, ${Saturation.Purple}%, ${Lightness.Purple}%);
+    --black: hsl(${Hues.Black}, ${Saturation.Black}%, ${Lightness.Black}%);
+    --white: hsl(${Hues.White}, ${Saturation.White}%, ${Lightness.White}%);
+    --accent: hsl(${Hues.Accent}, ${Saturation.Accent}%, ${Lightness.Accent}%);
 
-    --neutral-one: #2A2A3C;
-    --neutral-two: #323239;
-    --main-one: #3F3780;
-    --main-two: #766BBC; */
-
-    --hue-purple: ${Hues.Purple};
-    --hue-black: ${Hues.Black};
-    --hue-accent: ${Hues.Accent};
-    --hue-white: ${Hues.White};
-
-    --sat-purple: ${Saturation.Purple}%;
-    --sat-black: ${Saturation.Black}%;
-    --sat-accent: ${Saturation.Accent}%;
-    --sat-white: ${Saturation.White}%;
-
-    --li-purple: ${Lightness.Purple}%;
-    --li-black: ${Lightness.Black}%;
-    --li-accent: ${Lightness.Accent}%;
-    --li-white: ${Lightness.White}%;
-
-    --purple: hsl(var(--hue-purple), var(--sat-purple), var(--li-purple));
-    --black: hsl(var(--hue-black), var(--sat-black), var(--li-black));
-    --accent: hsl(var(--hue-accent), var(--sat-accent), var(--li-accent));
-    --white: hsl(var(--hue-white), var(--sat-white), var(--li-white));
+    ${generateVariantCSS()}
 
     --font: 'Fira Code', monospace;
 

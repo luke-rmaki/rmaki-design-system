@@ -4,62 +4,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboard } from '@fortawesome/free-solid-svg-icons';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { HSLToHex } from '../functions/hsl_to_hex';
-import { calculate_variant_lightness } from '../functions/calculate_variant_lightness';
+import { extractHSLValues } from '../../utils/extractHSLValues';
+import { HSLToHex } from '../../utils/hsl_to_hex';
 import { Hues, Saturation, Lightness } from '../../gatsby-theme-docz/Colors';
 
 type Props = {
-  color: string;
+  color: string[];
 };
 
 export const Swatch = (props: Props) => {
   const { color } = props;
-  let h;
-  let s;
-  let l;
-
-  switch (color) {
-    case `purple`:
-      h = Hues.Purple;
-      s = Saturation.Purple;
-      l = Lightness.Purple;
-      break;
-    case `black`:
-      h = Hues.Black;
-      s = Saturation.Black;
-      l = Lightness.Black;
-      break;
-    case `accent`:
-      h = Hues.Accent;
-      s = Saturation.Accent;
-      l = Lightness.Accent;
-      break;
-    case `white`:
-      h = Hues.White;
-      s = Saturation.White;
-      l = Lightness.White;
-      break;
-    case `purple-dark-one`:
-      h = Hues.Purple;
-      s = Saturation.Purple;
-      l = calculate_variant_lightness(Lightness.Purple, `dark`, 1);
-      break;
-    case `purple-dark-two`:
-      h = Hues.Purple;
-      s = Saturation.Purple;
-      l = calculate_variant_lightness(Lightness.Purple, `dark`, 2);
-      break;
-    case `black-light-one`:
-      h = Hues.Black;
-      s = Saturation.Black;
-      l = calculate_variant_lightness(Lightness.Black, `light`, 1);
-      break;
-    default:
-      h = 0;
-      s = 0;
-      l = 0;
-      break;
-  }
+  const [name, hsl] = color;
+  const [h, s, l] = extractHSLValues(hsl);
 
   const hex = HSLToHex(h, s, l);
 
@@ -74,7 +30,8 @@ export const Swatch = (props: Props) => {
   }
 
   return (
-    <StyledSwatch color={`${h}, ${s}%, ${l}%`} showTip={showTooltip}>
+    <StyledSwatch color={hsl} showTip={showTooltip}>
+      <h2>{name}</h2>
       <div />
       <span>
         <input defaultValue={`hsl(${h}, ${s}, ${l})`} disabled />
@@ -107,7 +64,7 @@ const StyledSwatch = styled.li<StyledProps>`
   margin-bottom: 50px;
 
   div {
-    background-color: ${(props) => `hsl(${props.color})`};
+    background-color: ${(props) => props.color};
     height: 100px;
     width: 200px;
     padding: 10px;
