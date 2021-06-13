@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { collateColors } from '../../utils/collateColors';
+import { useCollateColors } from '../../utils/usCollateColors';
 import { Swatch } from './Swatch';
 import { SwatchCollection } from './SwatchCollection';
 
 export const Colors = () => {
-  const colors = collateColors();
+  const colors = useCollateColors();
   return (
     <StyledColors>
       <SwatchCollection>
